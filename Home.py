@@ -28,8 +28,10 @@ import xlsxwriter
 import streamlit.components.v1 as components
 import requests
 import hydralit_components as hc
-hc.hydralit_experimental(True)
 import base64
+
+hc.hydralit_experimental(True)
+
 #####################################
 #### Styling dataframes
 cmap_red_green = LinearSegmentedColormap.from_list(
