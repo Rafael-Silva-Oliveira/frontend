@@ -30,7 +30,7 @@ import requests
 import hydralit_components as hc
 import base64
 hc.hydralit_experimental(True)
-
+st.experimental_rerun()
 modal_code = """
 
 <style>
