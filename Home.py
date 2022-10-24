@@ -29,9 +29,59 @@ import streamlit.components.v1 as components
 import requests
 import hydralit_components as hc
 import base64
-
 hc.hydralit_experimental(True)
 
+modal_code = """
+
+<style>
+  .btn btn-primary {
+    background-color: #31b0d5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border-color: #46b8da;
+  }
+
+  #button {
+    position: fixed;
+    bottom: -4px;
+    left: 10px;
+  }
+</style>
+
+<!-- Button trigger modal -->
+<button type="button" id = "button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Info
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Legend for charts and tables: </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <code> LW </code>- Last Week <br>
+        <code> L4W </code>- Last 4 Weeks <br>
+        <code> CW </code>- Current Week <br>
+        <code> Camp </code>- Campaign Average Scores to Date <br>
+        <code> P3M </code>- 3 Months Score Prior to Campaign <br>
+        <code> L6M </code>- Last 6 Months <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+"""
+
+
+st.markdown(modal_code,unsafe_allow_html=True)
 #####################################
 #### Styling dataframes
 cmap_red_green = LinearSegmentedColormap.from_list(
@@ -1335,113 +1385,6 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
 # df = pd.DataFrame(np.random.randn(3, 8), index=["Big text", "Even bigger text", "Really really big text"], columns=index)
 # st.write(df.style.set_table_styles(styles).to_html())
 
-# modal_code = """
-
-# <style>
-#   .btn btn-primary {
-#     background-color: #31b0d5;
-#     color: white;
-#     padding: 10px 20px;
-#     border-radius: 4px;
-#     border-color: #46b8da;
-#   }
-
-#   #button {
-#     position: fixed;
-#     bottom: -4px;
-#     left: 10px;
-#   }
-# </style>
-
-# <!-- Button trigger modal -->
-# <button type="button" id = "button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-#   Info
-# </button>
-
-# <!-- Modal -->
-# <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-#   <div class="modal-dialog" role="document">
-#     <div class="modal-content">
-#       <div class="modal-header">
-#         <h5 class="modal-title" id="exampleModalLabel"> Legend for charts and tables: </h5>
-#         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-#           <span aria-hidden="true">&times;</span>
-#         </button>
-#       </div>
-#       <div class="modal-body">
-#         <code> LW </code>- Last Week <br>
-#         <code> L4W </code>- Last 4 Weeks <br>
-#         <code> CW </code>- Current Week <br>
-#         <code> Camp </code>- Campaign Average Scores to Date <br>
-#         <code> P3M </code>- 3 Months Score Prior to Campaign <br>
-#         <code> L6M </code>- Last 6 Months <br>
-#       </div>
-#       <div class="modal-footer">
-#         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-#       </div>
-#     </div>
-#   </div>
-# </div>
-# """
-modal_code = """
-<div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-Hydralit Components Experimental Demo!
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Modal Popup Form!</h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
-  <div class="container">
-<h2>Pure JS+HTML Form</h2>
-<form class="form-horizontal" action="/">
-<div class="form-group">
-<label class="control-label col-sm-2" for="email">Email:</label>
-<div class="col-sm-10">
-  <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-</div>
-</div>
-<div class="form-group">
-<label class="control-label col-sm-2" for="pwd">Password:</label>
-<div class="col-sm-10">          
-  <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-</div>
-</div>
-<div class="form-group">        
-<div class="col-sm-offset-2 col-sm-10">
-  <div class="checkbox">
-    <label><input type="checkbox" name="remember"> Remember me</label>
-  </div>
-</div>
-</div>
-<div class="form-group">        
-<div class="col-sm-offset-2 col-sm-10">
-  <button type="submit" class="btn btn-default">Submit</button>
-</div>
-</div>
-</form>
-</div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-primary">Save changes</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-"""
-
-st.markdown(modal_code,unsafe_allow_html=True)
 # query_param = st.experimental_get_query_params()
 
 # if query_param:
