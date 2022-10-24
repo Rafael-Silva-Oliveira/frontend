@@ -547,7 +547,7 @@ def sentiment_barplot(dataframe,barplot_type,brand,option):
 ####################
 column0_spacer1, column0_1, column0_spacer2, column0_2, column0_spacer3 = st.columns((0.1, 5, .1, 1.3, .1))
 with column0_1:
-    st.image(Image.open(r"C:\Users\RafaelOliveira\OneDrive - Brand Delta\Documents\Projects\Frontend\Frontend\frontend\images\Picture1.png"))
+    st.image(Image.open(r"Picture1.png"))
 
 with column0_2:
     st.text("")
