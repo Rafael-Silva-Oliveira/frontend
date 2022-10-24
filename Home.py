@@ -83,7 +83,6 @@ modal_code = """
 """
 
 st.markdown(modal_code,unsafe_allow_html=True)
-st.experimental_rerun()
 
 #####################################
 #### Styling dataframes
@@ -1393,3 +1392,5 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
 # if query_param:
 #     st.write('We caputred these values from the experimental modal form using Javascript + HTML + Streamlit + Hydralit Components.')
 #     st.write(query_param)
+
+st.experimental_rerun()
