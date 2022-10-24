@@ -29,7 +29,6 @@ import streamlit.components.v1 as components
 import requests
 import hydralit_components as hc
 import base64
-hc.hydralit_experimental(True)
 modal_code = """
 
 <style>
@@ -81,6 +80,7 @@ modal_code = """
   </div>
 </div>
 """
+hc.hydralit_experimental(True,modal_code)
 
 st.markdown(modal_code,unsafe_allow_html=True)
 
