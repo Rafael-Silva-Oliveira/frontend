@@ -83,6 +83,8 @@ modal_code = """
 """
 
 st.markdown(modal_code,unsafe_allow_html=True)
+st.experimental_rerun()
+
 #####################################
 #### Styling dataframes
 cmap_red_green = LinearSegmentedColormap.from_list(
