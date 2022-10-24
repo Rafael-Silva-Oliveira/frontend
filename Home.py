@@ -1346,7 +1346,7 @@ modal_code = """
 
   #button {
     position: fixed;
-    bottom: -4px;
+    bottom: -14px;
     right: 10px;
   }
 </style>
