@@ -210,7 +210,7 @@ def load_data(path):
     df = pd.read_parquet(path, engine='pyarrow')
 
     return df
-file_path = r"C:\Users\RafaelOliveira\Brand Delta\Nomad - General\Green Cuisine Campaign\03_FrontEnd_GreenCuisine\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = r"FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path,engine='openpyxl')
 xls = pd.ExcelFile(file_path)
@@ -604,7 +604,7 @@ def sentiment_barplot(dataframe,barplot_type,brand,option):
 ####################
 column0_spacer1, column0_1, column0_spacer2, column0_2, column0_spacer3 = st.columns((0.1, 5, .1, 1.3, .1))
 with column0_1:
-    st.image(Image.open(r"C:\Users\RafaelOliveira\OneDrive - Brand Delta\Documents\Projects\Frontend\Frontend\frontend\images\Picture1.png"))
+    st.image(Image.open(r"Picture1.png"))
 
 with column0_2:
     st.text("")
@@ -1309,118 +1309,4 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
         data=buffer,
         file_name="data.xlsx",
         mime="application/vnd.ms-excel",
-    )
-    # # Close the Pandas Excel writer and output the Excel file to the buffer
-    # clicked = st.button('Click to select the folder', key = "FolderSelectionButton")
 
-    # if clicked and len(options) != 0:     
-    #     app = wx.App()
-    #     dlg_obj = wx.DirDialog (None, "Choose input directory", "",
-    #                         wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST)
-                    
-    #     if dlg_obj.ShowModal() == wx.ID_OK:
-    #         folder_path = dlg_obj.GetPath()
-        
-    #     folder_path = r'{}\data.xlsx'.format(folder_path)
-
-    #     st.write(folder_path)
-        # st.download_button(
-        #     label="Download Excel worksheets",
-        #     data=buffer,
-        #     file_name="{}\data.xlsx".format(folder_path),
-        #     mime="application/vnd.ms-excel",
-        # )
-
-
-############################### TESTS ####################################
-# import pandas as pd
-# import numpy as np
-# from matplotlib import pyplot as plt
-# import plotly.express as px
-# import plotly.graph_objects as go
-# import base64
-# import plotly.graph_objects as go
-# from plotly.subplots import make_subplots
-
-# plot_df = pd.DataFrame({'time':['2022-01-01','2022-01-02','2022-01-03','2022-01-04','2022-01-05'],'A':[2.1,2.4,3.2,4.2,2.4],'B':[12,23,24,27,17],'C':[np.nan,500,200,np.nan,np.nan],'D':['pre','during','during','post','post']})
-# plot_df
-
-
-# fig = make_subplots(specs=[[{"secondary_y": True}]])
-
-# fig.add_trace(
-#     go.Bar(
-#         x=[
-#             plot_df['D'],
-#             plot_df['time']
-#         ],
-#         y=plot_df['C'],
-#         showlegend=True,
-#         name='C'
-#     ),secondary_y=False
-# )
-
-# fig.add_trace(
-#     go.Bar(
-#         x=plot_df['time'],
-#         y=plot_df['C'],
-#         name='C',
-#         visible=False
-#     ),secondary_y=False
-# )
-
-# fig.add_trace(
-#     go.Scatter(
-#         mode='lines',
-#         x=plot_df['time'], 
-#         y=plot_df['A'],
-#         name='A'),
-#         secondary_y=True
-# )
-
-# fig.add_trace(
-#     go.Scatter(
-#         mode='lines',
-#         x=plot_df['time'], 
-#         y=plot_df['B'],
-#         name='B'),
-#         secondary_y=True
-# )
-
-# fig.update_layout(
-#     #margin=dict(l=2, r=1, t=55, b=2),
-#     autosize=True,
-#     xaxis=dict(title_text="Time"),
-#     yaxis=dict(title_text="C"),
-#     width=1000,
-#     xaxis2= {'anchor': 'y', 'overlaying': 'x', 'side': 'top'}
-#     )
-
-# fig.data[0].update(xaxis='x2')
-
-
-# # fig.show()
-
-# test = """
-# <style 
-#   div {
-#   color: transparent;  
-#   text-shadow: 0 0 0 limegreen;
-#   }
-# </style>
-
-# <div>🔺</div>
-
-# """
-
-# arrays = [
-#     ["bar", "bar", "baz", "baz", "foo", "foo", "qux", "qux"],
-#     ["one", "two", "one", "two", "one", "two", "one", "two"],
-# ]
-
-# tuples = list(zip(*arrays))
-
-# index = pd.MultiIndex.from_tuples(tuples, names=[None, "Brand"])
-
-# df = pd.DataFrame(np.random.randn(3, 8), index=["Big text", "Even bigger text", "Really really big text"], columns=index)
-# st.write(df.style.set_table_styles(styles).to_html())
