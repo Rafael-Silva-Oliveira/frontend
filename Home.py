@@ -29,7 +29,7 @@ import streamlit.components.v1 as components
 import requests
 import hydralit_components as hc
 hc.hydralit_experimental(True)
-
+import base64
 #####################################
 #### Styling dataframes
 cmap_red_green = LinearSegmentedColormap.from_list(
@@ -156,7 +156,7 @@ def load_data(path):
     df = pd.read_parquet(path, engine='pyarrow')
 
     return df
-file_path = r"C:\Users\RafaelOliveira\Brand Delta\Nomad - General\Green Cuisine Campaign\03_FrontEnd_GreenCuisine\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = r"FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path,engine='openpyxl')
 xls = pd.ExcelFile(file_path)
