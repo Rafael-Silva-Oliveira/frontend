@@ -34,3 +34,9 @@ toolz==0.12.0
 tornado==6.2
 tqdm==4.64.0
 openpyxl
+matplotlib
+seaborn
+xlsxwriter
+pillow
+requires.io
+bytesbufio
