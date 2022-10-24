@@ -47,6 +47,9 @@ modal_code = """
     bottom: -4px;
     left: 10px;
   }
+  .modal-title {
+   text-color: black
+  }
 </style>
 
 <!-- Button trigger modal -->
@@ -65,12 +68,12 @@ modal_code = """
         </button>
       </div>
       <div class="modal-body">
-        <code> LW </code>- Last Week <br>
-        <code> L4W </code>- Last 4 Weeks <br>
-        <code> CW </code>- Current Week <br>
-        <code> Camp </code>- Campaign Average Scores to Date <br>
-        <code> P3M </code>- 3 Months Score Prior to Campaign <br>
-        <code> L6M </code>- Last 6 Months <br>
+        <code> LW - Last Week</code> <br>
+        <code> L4W - Last 4 Weeks </code> <br>
+        <code> CW - Current Week </code><br>
+        <code> Camp - Campaign Average Scores to Date </code><br>
+        <code> P3M - 3 Months Score Prior to Campaign </code><br>
+        <code> L6M - Last 6 Months </code><br>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
