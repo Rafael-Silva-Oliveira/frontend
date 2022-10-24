@@ -210,7 +210,7 @@ def load_data(path):
     df = pd.read_parquet(path, engine='pyarrow')
 
     return df
-file_path = r"FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = r"C:\Users\RafaelOliveira\Brand Delta\Nomad - General\Green Cuisine Campaign\03_FrontEnd_GreenCuisine\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path,engine='openpyxl')
 xls = pd.ExcelFile(file_path)
@@ -411,6 +411,7 @@ def affinity_spend(equity,spend,brand):
     # fig.add_annotation(x=0.94, y=1.1, xref='paper', yref='paper', text='            Post            ', showarcolumn=False, font=dict(color='blue'), bgcolor='green')
 
     st.plotly_chart(fig)
+    return merged_data
 
 def filled_area_plot(dataframe,x,y,line_group,brand,type,filled_area_plot_type='AUC'):
 
@@ -452,6 +453,7 @@ def filled_area_plot(dataframe,x,y,line_group,brand,type,filled_area_plot_type='
         )
         st.plotly_chart(fig)
 
+    return dataframe_grouped
 
 def sentiment_barplot(dataframe,barplot_type,brand,option):
 
@@ -595,13 +597,14 @@ def sentiment_barplot(dataframe,barplot_type,brand,option):
         fig.update_layout(autosize=True)
         st.plotly_chart(fig)
 
+    return final_view_dataframe_grouped
 
 ####################
 ### INTRODUCTION ###
 ####################
 column0_spacer1, column0_1, column0_spacer2, column0_2, column0_spacer3 = st.columns((0.1, 5, .1, 1.3, .1))
 with column0_1:
-    st.image(Image.open(r"Picture1.png"))
+    st.image(Image.open(r"C:\Users\RafaelOliveira\OneDrive - Brand Delta\Documents\Projects\Frontend\Frontend\frontend\images\Picture1.png"))
 
 with column0_2:
     st.text("")
@@ -611,11 +614,7 @@ with column0_2:
 ### SELECTION ###
 #################
 
-#####   FILTERS ##### 
-
 ### SEE DATA ###
-
-
 
 column3_spacer1, column3_1, column3_2, column3_spacer2 = st.columns((.2, 2,5, .2))
 with column3_2:
@@ -656,7 +655,7 @@ st.text('')
 
 st.markdown("<h3 <span class = 'highlight  darkbluegrad'> 1 | How is the Campaign Spreading across Consumer Channels? </span> </h3>",unsafe_allow_html=True)
 
-column4_1, column4_spacer2, column4_2 = st.columns((1, 0.05, 1))
+column4_1, column4_2, column4_spacer2, column4_3,column4_4 = st.columns((1,0.05, 0.05, 1,0.05))
 
 with column4_1:
     st.markdown('')
@@ -669,7 +668,7 @@ with column4_1:
     #     "Select mix:",
     #     ['journey_predictions','author_predictions','Message_Type','Gender','Age Range'])
         
-    filled_area_plot(
+    author_grouped = filled_area_plot(
         dataframe=final_view_dataframe,
         x="WeekCom",
         y="counts",
@@ -677,19 +676,58 @@ with column4_1:
         filled_area_plot_type='AUC',
         brand='green_cuisine',
         type='author_predictions')
-
 with column4_2:
+    st.markdown('')
+
+    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            # Write each dataframe to a different worksheet.
+        author_grouped.to_excel(writer, sheet_name='Author engagement')
+    writer.save()
+    st.download_button(
+        label="⭳",
+        data=buffer,
+        file_name="Author engagement.xlsx",
+        mime="application/vnd.ms-excel",
+    )
+with column4_3:
     st.markdown('')
     st.markdown("<h5> How is the Campaign Sentiment Trending? </h5>",unsafe_allow_html=True)
     # barplot_type = st.selectbox(
     #                 "Select barplot type:",
     #                 ['Normalized','Absolute'])
-    sentiment_barplot(final_view_dataframe,'Absolute',"green_cuisine_campaign",option)
-st.markdown("<h3 <span class = 'highlight  darkbluegrad'> 2 | How is the Campaign supporting Equity? </span> </h3>",unsafe_allow_html=True)
-column12_spacer1, column12_1,column12_spacer2  = st.columns((1, 5, 1))
-with column12_1:
+    res_sentiment = sentiment_barplot(final_view_dataframe,'Absolute',"green_cuisine_campaign",option)
 
-    affinity_spend(equity,spend,'green_cuisine')
+with column4_4:
+    st.markdown('')
+
+    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            # Write each dataframe to a different worksheet.
+        res_sentiment.to_excel(writer, sheet_name='Sentiment')
+    writer.save()
+    st.download_button(
+        label="⭳",
+        data=buffer,
+        file_name="Sentiment.xlsx",
+        mime="application/vnd.ms-excel",
+    )
+
+st.markdown("<h3 <span class = 'highlight  darkbluegrad'> 2 | How is the Campaign supporting Equity? </span> </h3>",unsafe_allow_html=True)
+column12_spacer1, column12_1,column12_2,column12_spacer2  = st.columns((1, 5,0.05, 1))
+with column12_1:
+    affinity_spend_res = affinity_spend(equity,spend,'green_cuisine')
+with column12_2:
+    st.markdown('')
+
+    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            # Write each dataframe to a different worksheet.
+        affinity_spend_res.to_excel(writer, sheet_name='Affinity with Spend')
+    writer.save()
+    st.download_button(
+        label="⭳",
+        data=buffer,
+        file_name="Affinity with Spend.xlsx",
+        mime="application/vnd.ms-excel",
+    )
 
 st.markdown("<h5> What is the impact on equity score? </h5>",unsafe_allow_html=True)
 column5_spacer1, column5_1,column5_2,column5_spacer3  = st.columns((.2, 2,.1, .2))
@@ -1386,10 +1424,3 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
 
 # df = pd.DataFrame(np.random.randn(3, 8), index=["Big text", "Even bigger text", "Really really big text"], columns=index)
 # st.write(df.style.set_table_styles(styles).to_html())
-
-# query_param = st.experimental_get_query_params()
-
-# if query_param:
-#     st.write('We caputred these values from the experimental modal form using Javascript + HTML + Streamlit + Hydralit Components.')
-#     st.write(query_param)
-
