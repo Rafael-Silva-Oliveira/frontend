@@ -40,4 +40,4 @@ xlsxwriter
 pillow
 requires.io
 bytesbufio
-base64
+pybase64
