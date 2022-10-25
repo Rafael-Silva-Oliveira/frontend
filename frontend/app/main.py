@@ -2,6 +2,19 @@
 ######## version = 1.0
 ######## status = WIP
 ###########################################################################################################
+import base64
+import requests
+import streamlit.components.v1 as components
+import xlsxwriter
+from io import BytesIO
+from matplotlib.colors import LinearSegmentedColormap
+from dateutil.relativedelta import relativedelta
+from plotly.subplots import make_subplots
+from PIL import Image
+import plotly.graph_objects as go
+import plotly.express as px
+import io
+from frontend.app.load_css import local_css
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -9,28 +22,13 @@ import seaborn as sns
 import datetime
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-from frontend.app.load_css import local_css
 local_css("frontend\css\style.css")
-import io
-import plotly.express as px
-import plotly.graph_objects as go
-from PIL import Image
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-from dateutil.relativedelta import relativedelta
-import seaborn as sns
-from matplotlib.colors import LinearSegmentedColormap
 idx = pd.IndexSlice
-from io import BytesIO
 buffer = io.BytesIO()
-import io
-import xlsxwriter
-import streamlit.components.v1 as components
-import requests
-import base64
 
 #####################################
-# Styling dataframes
+# Styling dataframes ################
+#####################################
 cmap_red_green = LinearSegmentedColormap.from_list(
     name='red_green_gradient',
     colors=['#f59e8c', '#FFFFFF', '#ADF2C7']
@@ -132,7 +130,6 @@ styles = [
 ]
 
 # Data Import
-
 
 class Tweet(object):
     def __init__(self, s, embed_str=False):
@@ -259,33 +256,6 @@ def min_max_scaler(a, b, original_dataframe, count_col):
     return original_dataframe_cp
 
 
-def aggrid_interactive_table(df: pd.DataFrame):
-    """Creates an st-aggrid interactive table based on a dataframe.
-
-    Args:
-        df (pd.DataFrame]): Source dataframe
-
-    Returns:
-        dict: The selected column
-    """
-
-    options = GridOptionsBuilder.from_dataframe(
-        df, enablecolumnGroup=True, enableValue=True, enablePivot=True
-    )
-
-    options.configure_side_bar()
-
-    options.configure_selection("single")
-    selection = AgGrid(
-        df,
-        enable_enterprise_modules=True,
-        gridOptions=options.build(),
-        update_mode=GridUpdateMode.MODEL_CHANGED,
-        allow_unsafe_jscode=True,
-    )
-
-    return selection
-
 
 ########################
 ### ANALYSIS METHODS ###
@@ -314,19 +284,6 @@ def affinity_spend(equity, spend, brand):
             y=merged_data['Media_Spend_x'],
             name='Investment', showlegend=True
         ))
-
-    # fig.add_trace(
-    #     go.Bar(
-    #         x=[
-    #             merged_data['campaign_id'],
-    #             merged_data['time']
-    #         ],
-    #         y=merged_data['Media_Spend_x'],
-    #         name='Investment',
-    #         showlegend=True
-    # ),secondary_y=False)
-
-    # fig.data[1].update(xaxis='x2')
 
     fig.add_trace(
         go.Scatter(
@@ -1109,7 +1066,6 @@ column9_spacer1, column9_1, column9_spacer2, column9_2, column9_3, column9_space
 with column9_1:
     st.markdown("\n")
 
-    # st.image("https://i.ibb.co/gwQYTtB/Wt2PA.png")
     st.markdown(
         """
     <style>
@@ -1140,7 +1096,6 @@ with column9_2:
         index_col=0,
         sheet_name='6.2_RiskTracking_TABLE')
 
-    #risk_tracking_news = risk_tracking_news.T
     st.markdown((risk_tracking_news.style
                  .format("{:.0%}", subset=pd.IndexSlice[['% Negative'], :])
                  .format("{:.0f}", subset=pd.IndexSlice[['News', 'Negative News'], :])
@@ -1152,25 +1107,6 @@ with column9_2:
                  .set_properties(**{'text-align': 'center'})
                  .set_table_styles(styles, overwrite=False).to_html()), unsafe_allow_html=True
                 )
-    #
-
-    # st.markdown(
-    # """
-    # <style>
-    #     .gc {
-    #         display: flex;
-    #         align-items:center;
-    #         margin:auto;
-    #         max-width: 80%;
-    #         max-height:20%;
-    #         padding-top:2em;
-    #     }
-    # </style>
-
-    # <div >
-    #     <img class="gc" src="https://i.ibb.co/kQKLZnx/Microsoft-Teams-image-4.png" ></div>
-    # """,unsafe_allow_html=True
-    # )
     t = Tweet(
         "https://twitter.com/fleurmeston/status/1556245399379353600").component()
 
@@ -1272,10 +1208,6 @@ with column10_2:
     st.markdown("\n")
 
 with column10_1:
-    # st.markdown("\n")
-    # image = Image.open(r'C:\Users\RafaelOliveira\OneDrive - Brand Delta\Documents\Projects\Frontend\Frontend\frontend\images\GC.png')
-    # st.image(image,use_column_width = True)
-
     st.markdown(
         """
     <style>
@@ -1328,238 +1260,4 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
         file_name="data.xlsx",
         mime="application/vnd.ms-excel",
     )
-    # # Close the Pandas Excel writer and output the Excel file to the buffer
-    # clicked = st.button('Click to select the folder', key = "FolderSelectionButton")
 
-    # if clicked and len(options) != 0:
-    #     app = wx.App()
-    #     dlg_obj = wx.DirDialog (None, "Choose input directory", "",
-    #                         wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST)
-
-    #     if dlg_obj.ShowModal() == wx.ID_OK:
-    #         folder_path = dlg_obj.GetPath()
-
-    #     folder_path = r'{}\data.xlsx'.format(folder_path)
-
-    #     st.write(folder_path)
-    # st.download_button(
-    #     label="Download Excel worksheets",
-    #     data=buffer,
-    #     file_name="{}\data.xlsx".format(folder_path),
-    #     mime="application/vnd.ms-excel",
-    # )
-
-
-############################### TESTS ####################################
-# import pandas as pd
-# import numpy as np
-# from matplotlib import pyplot as plt
-# import plotly.express as px
-# import plotly.graph_objects as go
-# import base64
-# import plotly.graph_objects as go
-# from plotly.subplots import make_subplots
-
-# plot_df = pd.DataFrame({'time':['2022-01-01','2022-01-02','2022-01-03','2022-01-04','2022-01-05'],'A':[2.1,2.4,3.2,4.2,2.4],'B':[12,23,24,27,17],'C':[np.nan,500,200,np.nan,np.nan],'D':['pre','during','during','post','post']})
-# plot_df
-
-
-# fig = make_subplots(specs=[[{"secondary_y": True}]])
-
-# fig.add_trace(
-#     go.Bar(
-#         x=[
-#             plot_df['D'],
-#             plot_df['time']
-#         ],
-#         y=plot_df['C'],
-#         showlegend=True,
-#         name='C'
-#     ),secondary_y=False
-# )
-
-# fig.add_trace(
-#     go.Bar(
-#         x=plot_df['time'],
-#         y=plot_df['C'],
-#         name='C',
-#         visible=False
-#     ),secondary_y=False
-# )
-
-# fig.add_trace(
-#     go.Scatter(
-#         mode='lines',
-#         x=plot_df['time'],
-#         y=plot_df['A'],
-#         name='A'),
-#         secondary_y=True
-# )
-
-# fig.add_trace(
-#     go.Scatter(
-#         mode='lines',
-#         x=plot_df['time'],
-#         y=plot_df['B'],
-#         name='B'),
-#         secondary_y=True
-# )
-
-# fig.update_layout(
-#     #margin=dict(l=2, r=1, t=55, b=2),
-#     autosize=True,
-#     xaxis=dict(title_text="Time"),
-#     yaxis=dict(title_text="C"),
-#     width=1000,
-#     xaxis2= {'anchor': 'y', 'overlaying': 'x', 'side': 'top'}
-#     )
-
-# fig.data[0].update(xaxis='x2')
-
-
-# # fig.show()
-
-# test = """
-# <style
-#   div {
-#   color: transparent;
-#   text-shadow: 0 0 0 limegreen;
-#   }
-# </style>
-
-# <div>🔺</div>
-
-# """
-
-# arrays = [
-#     ["bar", "bar", "baz", "baz", "foo", "foo", "qux", "qux"],
-#     ["one", "two", "one", "two", "one", "two", "one", "two"],
-# ]
-
-# tuples = list(zip(*arrays))
-
-# index = pd.MultiIndex.from_tuples(tuples, names=[None, "Brand"])
-
-# df = pd.DataFrame(np.random.randn(3, 8), index=["Big text", "Even bigger text", "Really really big text"], columns=index)
-# st.write(df.style.set_table_styles(styles).to_html())
-
-modal_code = """
-
-<style>
-  .btn btn-primary {
-    background-color: #31b0d5;
-    color: white;
-    padding: 10px 20px;
-
-  }
-
-  body {
-  font-family: Arial, sans-serif;
-  background: url(http://www.shukatsu-note.com/wp-content/uploads/2014/12/computer-564136_1280.jpg) no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-
-
-
-.button {
-  font-size: 1em;
-  padding: 10px;
-  color: #fff;
-  border: 2px solid #06D85F;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  border-radius: 4px;
-  border-color: #7f22f2;
-  position: fixed;
-  bottom: -4px;
-  left: 10px;
-}
-
-.button:hover {
-    padding: 10px;
-    background: #7f22f2;
-    color: rgb(255,255,255);
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
-
-.popup {
-  margin: 70px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
-}
-
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
-}
-.popup .close:hover {
-  color: #06D85F;
-}
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
-
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
-}
-</style>
-
-<div class="box">
-	<a class="button" href="#popup1">Info</a>
-</div>
-
-<div id="popup1" class="overlay">
-	<div class="popup">
-		<h2>Tables and charts legend:</h2>
-		<a class="close" href="#">&times;</a>
-		<div class="content">
-		 <code> LW </code>- Last Week <br>
-         <code> L4W </code>- Last 4 Weeks <br>
-         <code> CW </code>- Current Week <br>
-         <code> Camp </code>- Campaign Average Scores to Date <br>
-         <code> P3M </code>- 3 Months Score Prior to Campaign <br>
-         <code> L6M </code>- Last 6 Months <br>
-		</div>
-	</div>
-</div>
-"""
-
-st.markdown(modal_code, unsafe_allow_html=True)
