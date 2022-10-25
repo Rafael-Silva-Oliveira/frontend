@@ -26,8 +26,7 @@ local_css(r"style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
 import os
-from directory_tree import display_tree
-display_tree()
+
 #####################################
 ###### Styling dataframes ###########
 #####################################
