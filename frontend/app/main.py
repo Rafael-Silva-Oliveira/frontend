@@ -22,7 +22,7 @@ import seaborn as sns
 import datetime
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-local_css("frontend\css\style.css")
+local_css("css\style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
 
@@ -132,6 +132,8 @@ styles = [
 ####################################
 ####### Helper Functions ###########
 ####################################
+
+
 class Tweet(object):
     def __init__(self, s, embed_str=False):
         if not embed_str:
@@ -155,8 +157,11 @@ def load_data(path):
     df = pd.read_parquet(path, engine='pyarrow')
 
     return df
+
+
 def filter_columns_by_values(df, col, values):
     return df[~df[col].isin(values)]
+
 
 @st.cache(allow_output_mutation=True)
 def get_base64_of_bin_file(png_file):
@@ -562,11 +567,9 @@ with column0_2:
     st.text("")
     st.subheader(' ')
 
-#################
-### SELECTION ###
-#################
-
-### SEE DATA ###
+###############################
+### DATA VIEWER AND FILTERS ###
+###############################
 
 column3_spacer1, column3_1, column3_2, column3_spacer2 = st.columns(
     (.2, 2, 5, .2))
@@ -579,32 +582,15 @@ with column3_2:
     #     st.table(data=final_view_dataframe.reset_index(drop=True).head(1000))
 with column3_1:
 
-    # tooltip_style = """
-    #     <style>
-    #     div[data-baseweb="tooltip"] {
-    #     width: 450px;
-    #     }
-    #     </style>
-
-    #     """
-    # st.markdown(tooltip_style,unsafe_allow_html=True)
-
-    # radio_markdown = '''
-    # Legend: \n
-    # LW - Last Week
-    # L4W - Last 4 Weeks
-    # CW - Current Week
-    # Camp - Campaign Average Scores to Date
-    # P3M - 3 Months Score Prior to Campaign
-    # '''.strip()
     option = st.selectbox(
         'Which time filters would you like to apply?',
         ['LW', 'L4W', 'P3M'])
 st.text('')
 
-# SENTIMENT BARPLOT
 
-
+####################
+### DATA DISPLAY ###
+####################
 st.markdown("<h3 <span class = 'highlight  darkbluegrad'> 1 | How is the Campaign Spreading across Consumer Channels? </span> </h3>", unsafe_allow_html=True)
 
 column4_1, column4_2, column4_spacer2, column4_3, column4_4 = st.columns(
@@ -1260,4 +1246,3 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
         file_name="data.xlsx",
         mime="application/vnd.ms-excel",
     )
-
