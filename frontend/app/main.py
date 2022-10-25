@@ -22,12 +22,12 @@ import seaborn as sns
 import datetime
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-local_css("frontend\css\style.css")
+local_css(r".\frontend\css\style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
 import os
-os.listdir(".")
-
+from directory_tree import display_tree
+display_tree()
 #####################################
 ###### Styling dataframes ###########
 #####################################
