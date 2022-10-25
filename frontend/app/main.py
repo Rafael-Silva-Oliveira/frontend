@@ -26,7 +26,7 @@ from plotly.subplots import make_subplots
 from load_css import local_css
 
 st.set_page_config(layout="wide")
-local_css(r"style.css")
+local_css("style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
 
