@@ -30,6 +30,25 @@ local_css(r"style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
 
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] > .main {{
+
+background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(237,242,251,1) 0%, rgba(245,248,253,1) 53%, rgba(255,255,255,1) 99%);
+}}
+
+[data-testid="stHeader"] {{
+background: rgba(0,0,0,0);
+}}
+[data-testid="stToolbar"] {{
+right: 2rem;
+}}
+</style>
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 #####################################
 ###### Styling dataframes ###########
 #####################################
@@ -237,7 +256,7 @@ def min_max_scaler(a, b, original_dataframe, count_col):
 ####################################
 ####### Reading Data ###########
 ####################################
-file_path = "FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = r"FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path, engine='openpyxl')
 xls = pd.ExcelFile(file_path)
@@ -285,7 +304,8 @@ def affinity_spend(equity, spend, brand):
         spend_cp, how='left', left_on='time', right_on='time')
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    fig.update_layout(xaxis2={'anchor': 'y', 'overlaying': 'x', 'side': 'top'})
+    fig.update_layout(xaxis2={'anchor': 'y', 'overlaying': 'x', 'side': 'top'}, 
+    paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
 
     fig.add_trace(
         go.Bar(
@@ -321,6 +341,8 @@ def affinity_spend(equity, spend, brand):
         xaxis=dict(title_text="Time"),
         yaxis=dict(title_text="Investment"),
         width=1000, title="{} Equity Build vs Media Spend".format(brand),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
     )
 
     fig.update_xaxes(title='Time')
@@ -374,7 +396,8 @@ def filled_area_plot(dataframe, x, y, line_group, brand, type, filled_area_plot_
             #margin=dict(l=2, r=1, t=55, b=2),
             autosize=True,
             xaxis=dict(title_text="Time"),
-            yaxis=dict(title_text="Amount"),
+            yaxis=dict(title_text="Amount"),        paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
         )
         st.plotly_chart(fig)
     elif filled_area_plot_type == "Line":
@@ -384,7 +407,8 @@ def filled_area_plot(dataframe, x, y, line_group, brand, type, filled_area_plot_
             #margin=dict(l=20, r=20, t=20, b=20),
             autosize=True,
             xaxis=dict(title_text="Time"),
-            yaxis=dict(title_text="Counts"),
+            yaxis=dict(title_text="Counts"),        paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
         )
         st.plotly_chart(fig)
 
@@ -468,7 +492,8 @@ def sentiment_barplot(dataframe, barplot_type, brand, option):
             autosize=True,
             xaxis=dict(title_text="Brand"),
             yaxis=dict(title_text="Amount"),
-            barmode="stack")
+            barmode="stack",
+            paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
 
         colors = ['salmon', 'aqua', 'aquamarine']
 
@@ -556,7 +581,6 @@ def sentiment_barplot(dataframe, barplot_type, brand, option):
         st.plotly_chart(fig)
 
     return final_view_dataframe_grouped
-
 
 ############
 ### LOGO ###
