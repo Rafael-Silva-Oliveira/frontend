@@ -22,7 +22,7 @@ import seaborn as sns
 import datetime
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-local_css(r".\style.css")
+local_css(r"style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
 import os
