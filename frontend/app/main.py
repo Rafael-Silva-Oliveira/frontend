@@ -1,6 +1,6 @@
 ###########################################################################################################
-######## version = 1.0
-######## status = WIP
+######## version = 1.1
+######## status = beta release
 ###########################################################################################################
 import base64
 import requests
@@ -746,8 +746,7 @@ with column6_2:
         file_name="Equity trend.xlsx",
         mime="application/vnd.ms-excel",
     )
-    # chosen_cols = [col for col in list(equity_trend.columns) for choice in choices if choice in col]
-    # st.markdown(equity_trend.astype(str).style.applymap(lambda x: f"background-color: {'yellow' if isinstance(x,str) else cmap_red_green}"))
+
 st.markdown("<h3 <span class = 'highlight darkbluegrad'> 3 | How are Efficiency & Financial KPIs tracking? </span> </h3>", unsafe_allow_html=True)
 column6_spacer1, column6_1, column6__spacer2, column6__2, column6__spacer3 = st.columns(
     (.2, 2.3, .4, 4.4, .2))
@@ -1213,7 +1212,9 @@ with column10_1:
     """, unsafe_allow_html=True
     )
 
-####################################### DATAFRAME DOWNLOADER #######################################
+############################
+### DATAFRAME DOWNLOADER ###
+############################
 st.markdown("<h3 <span class = 'highlight darkbluegrad'> Download Tables </span> </h3>",
             unsafe_allow_html=True)
 options = st.multiselect(
@@ -1247,3 +1248,4 @@ with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
         file_name="data.xlsx",
         mime="application/vnd.ms-excel",
     )
+################################################################################################################
