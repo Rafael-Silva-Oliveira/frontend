@@ -17,7 +17,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 from st_aggrid.shared import GridUpdateMode
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-from load_css import local_css
+from frontend.Home.load_css import local_css
 local_css("style.css")
 import io
 import plotly.express as px

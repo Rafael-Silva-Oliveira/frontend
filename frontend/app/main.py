@@ -9,8 +9,8 @@ import seaborn as sns
 import datetime
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-from load_css import local_css
-local_css("style.css")
+from frontend.app.load_css import local_css
+local_css("frontend\css\style.css")
 import io
 import plotly.express as px
 import plotly.graph_objects as go
@@ -27,64 +27,7 @@ import io
 import xlsxwriter
 import streamlit.components.v1 as components
 import requests
-import hydralit_components as hc
 import base64
-# hc.hydralit_experimental(True)
-# modal_code = """
-
-# <style>
-#   .btn btn-primary {
-#     background-color: #31b0d5;
-#     color: white;
-#     padding: 10px 20px;
-#     border-radius: 4px;
-#     border-color: #46b8da;
-#   }
-
-#   #button {
-#     position: fixed;
-#     bottom: -4px;
-#     left: 10px;
-#   }
-# </style>
-
-# <!-- Button trigger modal -->
-# <button type="button" id = "button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-#   Info
-# </button>
-
-# <!-- Modal -->
-# <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-#   <div class="modal-dialog" role="document">
-#     <div class="modal-content">
-#       <div class="modal-header">
-#         <h5 class="modal-title" id="exampleModalLabel"> Legend for charts and tables: </h5>
-#         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-#           <span aria-hidden="true">&times;</span>
-#         </button>
-#       </div>
-#       <div class="modal-body">
-#         <code> LW </code>- Last Week <br>
-#         <code> L4W </code>- Last 4 Weeks <br>
-#         <code> CW </code>- Current Week <br>
-#         <code> Camp </code>- Campaign Average Scores to Date <br>
-#         <code> P3M </code>- 3 Months Score Prior to Campaign <br>
-#         <code> L6M </code>- Last 6 Months <br>
-#       </div>
-#       <div class="modal-footer">
-#         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-#       </div>
-#     </div>
-#   </div>
-# </div>
-# """
-
-# st.markdown(modal_code, unsafe_allow_html=True)
-# query_param = st.experimental_get_query_params()
-
-# if query_param:
-#     st.write('We caputred these values from the experimental modal form using Javascript + HTML + Streamlit + Hydralit Components.')
-#     st.write(query_param)
 
 #####################################
 # Styling dataframes
@@ -216,7 +159,7 @@ def load_data(path):
     return df
 
 
-file_path = r"FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = r"backend\data\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path, engine='openpyxl')
 xls = pd.ExcelFile(file_path)
@@ -656,7 +599,7 @@ column0_spacer1, column0_1, column0_spacer2, column0_2, column0_spacer3 = st.col
     (0.1, 5, .1, 1.3, .1))
 with column0_1:
     st.image(Image.open(
-        r"Picture1.png"))
+        r"frontend\images\Picture1.png"))
 
 with column0_2:
     st.text("")
@@ -1018,8 +961,7 @@ column11_spacer1, column11_1, column11_spacer2, column11_2, column11_3 = st.colu
 with column11_1:
     st.markdown("\n")
     st.markdown("\n")
-    # image = Image.open(r'C:\Users\RafaelOliveira\OneDrive - Brand Delta\Documents\Projects\Frontend\Frontend\frontend\images\GC.png')
-    # st.image(image)
+
     st.markdown(
         """
     <style>
@@ -1166,10 +1108,6 @@ column9_spacer1, column9_1, column9_spacer2, column9_2, column9_3, column9_space
 
 with column9_1:
     st.markdown("\n")
-    # st.markdown("<h5> </h5>",unsafe_allow_html=True)
-
-    # image = Image.open(r'C:\Users\RafaelOliveira\OneDrive - Brand Delta\Documents\Projects\Frontend\Frontend\frontend\images\Wt2PA.png')
-    # st.image(image)
 
     # st.image("https://i.ibb.co/gwQYTtB/Wt2PA.png")
     st.markdown(
