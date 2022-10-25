@@ -1,31 +1,34 @@
 ###########################################################################################################
 ######## version = 1.1
-######## status = beta release
+# status = beta release
 ###########################################################################################################
+import os
 import base64
-import requests
-import streamlit.components.v1 as components
-import xlsxwriter
-from io import BytesIO
-from matplotlib.colors import LinearSegmentedColormap
-from dateutil.relativedelta import relativedelta
-from plotly.subplots import make_subplots
-from PIL import Image
-import plotly.graph_objects as go
-import plotly.express as px
+import datetime
 import io
-from load_css import local_css
-import streamlit as st
+from io import BytesIO
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import requests
 import seaborn as sns
-import datetime
-import matplotlib.pyplot as plt
+import streamlit as st
+import streamlit.components.v1 as components
+import xlsxwriter
+from dateutil.relativedelta import relativedelta
+from matplotlib.colors import LinearSegmentedColormap
+from PIL import Image
+from plotly.subplots import make_subplots
+
+from load_css import local_css
+
 st.set_page_config(layout="wide")
 local_css(r"style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
-import os
 
 #####################################
 ###### Styling dataframes ###########
