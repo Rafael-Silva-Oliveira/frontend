@@ -14,7 +14,7 @@ from PIL import Image
 import plotly.graph_objects as go
 import plotly.express as px
 import io
-from frontend.app.load_css import local_css
+from load_css import local_css
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -27,7 +27,7 @@ idx = pd.IndexSlice
 buffer = io.BytesIO()
 
 #####################################
-# Styling dataframes ################
+###### Styling dataframes ###########
 #####################################
 cmap_red_green = LinearSegmentedColormap.from_list(
     name='red_green_gradient',
@@ -129,8 +129,9 @@ styles = [
     dict(selector="tr", props=index_props),
 ]
 
-# Data Import
-
+####################################
+####### Helper Functions ###########
+####################################
 class Tweet(object):
     def __init__(self, s, embed_str=False):
         if not embed_str:
@@ -154,40 +155,8 @@ def load_data(path):
     df = pd.read_parquet(path, engine='pyarrow')
 
     return df
-
-
-file_path = r"backend\data\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
-
-dataframe = pd.read_excel(file_path, engine='openpyxl')
-xls = pd.ExcelFile(file_path)
-final_dataframe = {}
-for sheet_name in xls.sheet_names:
-    final_dataframe[sheet_name] = xls.parse(sheet_name)
-
-final_view_dataframe = final_dataframe['1_ConsumerChannel_RAW_DATA']
-
-final_view_dataframe['WeekCom'] = final_view_dataframe['Created_Time'] - \
-    pd.to_timedelta(final_view_dataframe['Created_Time'].dt.weekday, unit='D')
-final_view_dataframe['WeekCom'] = final_view_dataframe['WeekCom'].dt.strftime(
-    '%Y-%m-%d')
-
-equity_trend = pd.read_excel(file_path, engine='openpyxl', header=[
-                             0, 1], index_col=[0, 1], sheet_name='2.3_EquityTrend_TABLE')
-
-spend = final_dataframe['2_Equity_RAW_DATA']
-equity = final_dataframe['2_Equity_RAW_DATA']
-equity = equity[equity['time_period'].str.contains('weeks')]
-
-
 def filter_columns_by_values(df, col, values):
     return df[~df[col].isin(values)]
-
-
-final_view_dataframe = filter_columns_by_values(
-    final_view_dataframe, 'Sentiment', ['uncategorized'])
-final_view_dataframe['Created_Time'] = pd.to_datetime(
-    final_view_dataframe['Created_Time'])
-
 
 @st.cache(allow_output_mutation=True)
 def get_base64_of_bin_file(png_file):
@@ -256,10 +225,41 @@ def min_max_scaler(a, b, original_dataframe, count_col):
     return original_dataframe_cp
 
 
+####################################
+####### Reading Data ###########
+####################################
+file_path = r"backend\data\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
-########################
-### ANALYSIS METHODS ###
-########################
+dataframe = pd.read_excel(file_path, engine='openpyxl')
+xls = pd.ExcelFile(file_path)
+final_dataframe = {}
+for sheet_name in xls.sheet_names:
+    final_dataframe[sheet_name] = xls.parse(sheet_name)
+
+final_view_dataframe = final_dataframe['1_ConsumerChannel_RAW_DATA']
+
+final_view_dataframe['WeekCom'] = final_view_dataframe['Created_Time'] - \
+    pd.to_timedelta(final_view_dataframe['Created_Time'].dt.weekday, unit='D')
+final_view_dataframe['WeekCom'] = final_view_dataframe['WeekCom'].dt.strftime(
+    '%Y-%m-%d')
+
+equity_trend = pd.read_excel(file_path, engine='openpyxl', header=[
+                             0, 1], index_col=[0, 1], sheet_name='2.3_EquityTrend_TABLE')
+
+spend = final_dataframe['2_Equity_RAW_DATA']
+equity = final_dataframe['2_Equity_RAW_DATA']
+equity = equity[equity['time_period'].str.contains('weeks')]
+
+
+final_view_dataframe = filter_columns_by_values(
+    final_view_dataframe, 'Sentiment', ['uncategorized'])
+final_view_dataframe['Created_Time'] = pd.to_datetime(
+    final_view_dataframe['Created_Time'])
+
+
+#########################
+######### PLOTS #########
+#########################
 def affinity_spend(equity, spend, brand):
 
     affinity_brand_mapping = {
@@ -549,9 +549,9 @@ def sentiment_barplot(dataframe, barplot_type, brand, option):
     return final_view_dataframe_grouped
 
 
-####################
-### INTRODUCTION ###
-####################
+############
+### LOGO ###
+############
 column0_spacer1, column0_1, column0_spacer2, column0_2, column0_spacer3 = st.columns(
     (0.1, 5, .1, 1.3, .1))
 with column0_1:
