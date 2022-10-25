@@ -235,7 +235,7 @@ def min_max_scaler(a, b, original_dataframe, count_col):
 ####################################
 ####### Reading Data ###########
 ####################################
-file_path = "backend\data\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = "FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path, engine='openpyxl')
 xls = pd.ExcelFile(file_path)
@@ -563,7 +563,7 @@ column0_spacer1, column0_1, column0_spacer2, column0_2, column0_spacer3 = st.col
     (0.1, 5, .1, 1.3, .1))
 with column0_1:
     st.image(Image.open(
-        r"frontend\images\Picture1.png"))
+        r"Picture1.png"))
 
 with column0_2:
     st.text("")
