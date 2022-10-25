@@ -374,7 +374,7 @@ def filled_area_plot(dataframe, x, y, line_group, brand, type, filled_area_plot_
             #margin=dict(l=2, r=1, t=55, b=2),
             autosize=True,
             xaxis=dict(title_text="Time"),
-            yaxis=dict(title_text="Ammount"),
+            yaxis=dict(title_text="Amount"),
         )
         st.plotly_chart(fig)
     elif filled_area_plot_type == "Line":
@@ -467,7 +467,7 @@ def sentiment_barplot(dataframe, barplot_type, brand, option):
         fig.update_layout(
             autosize=True,
             xaxis=dict(title_text="Brand"),
-            yaxis=dict(title_text="Ammount"),
+            yaxis=dict(title_text="Amount"),
             barmode="stack")
 
         colors = ['salmon', 'aqua', 'aquamarine']
