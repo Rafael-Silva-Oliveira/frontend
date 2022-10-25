@@ -22,9 +22,11 @@ import seaborn as sns
 import datetime
 import matplotlib.pyplot as plt
 st.set_page_config(layout="wide")
-local_css(r"style.css")
+local_css("frontend\css\style.css")
 idx = pd.IndexSlice
 buffer = io.BytesIO()
+import os
+os.listdir(".")
 
 #####################################
 ###### Styling dataframes ###########
@@ -233,7 +235,7 @@ def min_max_scaler(a, b, original_dataframe, count_col):
 ####################################
 ####### Reading Data ###########
 ####################################
-file_path = r"frontend\backend\data\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
+file_path = "backend\data\FrontEnd_GreenCuisine_Dataset_v18.xlsx"
 
 dataframe = pd.read_excel(file_path, engine='openpyxl')
 xls = pd.ExcelFile(file_path)
